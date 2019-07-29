@@ -211,6 +211,91 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-嵌入式linux学习（一）：开发环境搭建" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/07/29/嵌入式linux学习（一）：开发环境搭建/" class="article-date">
+  	<time datetime="2019-07-29T07:10:54.000Z" itemprop="datePublished">2019-07-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/29/嵌入式linux学习（一）：开发环境搭建/">
+        嵌入式linux学习（一）：开发环境搭建
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>  开发环境需要用到交叉开发模式，这一点书上有很详细的介绍，包括硬件环境和软件环境的构建都写的十分清楚，所以这篇文章主要是写一下我在中间遇到的一些问题以及解决方法。虚拟机的话我用的是Ubuntu18.04版本，安装虚拟机啥的网上资源很多，直接百度就行。</p>
+<h1 id="linux下的环境搭建"><a href="#linux下的环境搭建" class="headerlink" title="linux下的环境搭建"></a>linux下的环境搭建</h1><h2 id="1、修改Ubuntu的一些配置"><a href="#1、修改Ubuntu的一些配置" class="headerlink" title="1、修改Ubuntu的一些配置"></a>1、修改Ubuntu的一些配置</h2><pre><code>   1）切换国内镜像源
+     在使用apt命令安装包时，因为系统自带下载源在国外服务器上，所以需要切换为国内镜像源才能提升下载速度。
+     这里有一篇[博客](https://blog.csdn.net/totorocyx/article/details/79517202)详细说明了如何直接根据终端命令修改其配置文件，从而达到修改下载源的目的.
+     或者，，，，你也可以直接用Ubuntu的图形界面去修改，步骤如下： 显示应用程序-&gt;软件和更新-&gt;下载自主服务器改为其他，然后选择合适的镜像源就行了，这里我选择的是阿里的镜像源。
+     [图片]
+
+  2）修改语言和设置汉语输入法
+     懒得写，直接贴别人博客了&lt;https://blog.csdn.net/langshi_2011/article/details/78993781&gt;,&lt;https://blog.csdn.net/sparkstrike/article/details/81487271&gt;
+2、安装基本的开发环境
+  1）安装C/C++的编译环境
+     &apos;$ sudo apt install build-essential&apos;
+  2）安装语法、词法分析器
+     &apos;$ sudo apt install bison flex&apos;
+  3）安装C函数库的man手册
+     &apos;$ sudo apt install manpages-dev&apos;
+  4）安装交叉编译工具链
+     这里书上有很详细的介绍，唯一一点需要提及的是，由于书中使用的Ubuntu是很老的版本了，所以在设置环境变量的时候可能会出问题。也就是说当你已经设置好/etc/environment中的PATH后，还是会出现‘arm-linux-gcc’未找到命令的错误。可能有以下几个方面的问题：一是权限问题，可能你已经制作好的工具链不在/home目录下，所以需要修改用户权限。使用下列语句修改文件拥有者及所属组名
+     &apos;$ sudo chown 用户名：用户名 源文件 -R&apos;
+     二可能是安装的Ubuntu是64位，而ARM的交叉编译工具是32位的，所以需要安装64位转32位的库。使用以下命令安装：
+     &apos;$ sudo apt install ia32-libs&apos;
+     然后会提示你别的软件包会取代，所以再安装一遍别的软件包就行了。
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        
+<div class="counter-tag counter">
+    <span id="/2019/07/29/嵌入式linux学习（一）：开发环境搭建/" class="leancloud_visitors post-title-link" style="font-size: 12px" data-flag-title="嵌入式linux学习（一）：开发环境搭建">
+         &nbsp;
+        view
+    </span>
+</div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-thinking" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -240,10 +325,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>emmmm，从大一下到整个大二结束，虽然参加了很多比赛，但是大部分都是划水性质的比赛而已，说白了就是调几个模块而已，总体而言是失去大于收获吧。至于stm32也不想再继续玩下去了，打算趁着大二暑假学习嵌入式linux。搭建的这个博客就当做是学习笔记的用途了，一来是防止忘记，二来是给自己一个学习的激励。</p>
+        <p>  emmmm，从大一下到整个大二结束，虽然参加了很多比赛，但是大部分都是划水性质的比赛而已，说白了就是调几个模块而已，总体而言是失去大于收获吧。至于stm32也不想再继续玩下去了，打算趁着大二暑假学习嵌入式linux。搭建的这个博客就当做是学习笔记的用途了，一来是防止忘记，二来是给自己一个学习的激励。</p>
 <h2 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h2><h3 id="开发板"><a href="#开发板" class="headerlink" title="开发板"></a>开发板</h3><p>  用的是欢哥留下来的MINIS3C2440，虽然是很旧的一块板子但是功能性很强，网上资源很多，相对其他开发板容易上手。</p>
-<h3 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h3><p>  我看的是韦东山老师的视频，虽然他用的是JZ2440开发板，但是和MINI2440差不多，都是同一个型号，所以学习起来没有太多区别。视频的话可以直接到官方百度网盘下载或者去B站看（后面两期要收费），下载地址：<a href="http://www.100ask.org/a/download/tools/" target="_blank" rel="noopener">http://www.100ask.org/a/download/tools/</a><br>  因为视频比较老旧，而且对新手不太友好，所以得有单片机学习经验的人才会上手的快一点，这里我推荐的是直接去b站上看他重录的视频，讲的清楚一点。配套书籍《嵌入式linux开发完全手册》，在淘宝可以买到或者直接去某盘下载就行。<br>  还有一个就是国嵌的视频，可以试着看一下。</p>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>  。。。</p>
+<h3 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h3><p>  我看的是韦东山老师的视频，虽然他用的是JZ2440开发板，但是和MINI2440差不多，都是同一个型号，所以学习起来没有太多区别。视频的话可以直接到官方百度网盘下载或者去B站看（后面两期要收费），下载地址：<a href="http://www.100ask.org/a/download/tools/" target="_blank" rel="noopener">http://www.100ask.org/a/download/tools/</a><br>  因为视频比较老旧，而且对新手不太友好，所以得有单片机学习经验的人才会上手的快一点，这里我推荐的是直接去b站上看他重录的视频，讲的清楚一点。配套书籍《嵌入式linux开发完全手册》，在淘宝可以买到或者直接去某盘下载就行。<br>  还有一个就是国嵌的视频，可以试着看一下。配套的书有华清远见的5本书，分别是《嵌入式技术基础》、《ARM嵌入式体系结构与接口技术》、《嵌入式linux操作系统》、《嵌入式C语言开发》、《嵌入式应用程序设计》。</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>  刚学没几天，等学的差不多了再补上。</p>
 
       
     </div>
@@ -257,78 +342,6 @@
         
 <div class="counter-tag counter">
     <span id="/2019/07/29/thinking/" class="leancloud_visitors post-title-link" style="font-size: 12px" data-flag-title="thinking.....">
-         &nbsp;
-        view
-    </span>
-</div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/04/20/hello-world/" class="article-date">
-  	<time datetime="2019-04-20T04:00:37.317Z" itemprop="datePublished">2019-04-20</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/20/hello-world/">
-        Hello World
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Hello-Hexo"><a href="#Hello-Hexo" class="headerlink" title="Hello Hexo"></a>Hello Hexo</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        
-<div class="counter-tag counter">
-    <span id="/2019/04/20/hello-world/" class="leancloud_visitors post-title-link" style="font-size: 12px" data-flag-title="Hello World">
          &nbsp;
         view
     </span>
