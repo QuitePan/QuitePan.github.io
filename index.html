@@ -240,7 +240,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="一、linux终端下基本命令"><a href="#一、linux终端下基本命令" class="headerlink" title="一、linux终端下基本命令"></a>一、linux终端下基本命令</h1><p>1、’$ ls’<br>-a 显示隐藏文件<br>-l以列表形式显示文件信息<br>-h配合-l显示文件大小<br>（ls通配符的使用，*代表任意多字符；？代表一个字符，至少一个；[]表示可以匹配字符组中的任意一个；[abc]表示匹配abc中的任意一个；[a~f]匹配a~f中的任意一个字符）</p>
+        <h1 id="一、linux终端下基本命令"><a href="#一、linux终端下基本命令" class="headerlink" title="一、linux终端下基本命令"></a>一、linux终端下基本命令</h1><p>（文件操作命令）<br>1、’$ ls’<br>-a 显示隐藏文件<br>-l以列表形式显示文件信息<br>-h配合-l显示文件大小<br>（ls通配符的使用，*代表任意多字符；？代表一个字符，至少一个；[]表示可以匹配字符组中的任意一个；[abc]表示匹配abc中的任意一个；[a~f]匹配a~f中的任意一个字符）</p>
 <p>2、’$ cd ‘<br>~ 切换到家目录<br>.保留当前目录不变<br>..切换到上层目录<br>-在最近的两次工作目录来回切换</p>
 <p>3、’$ touch’ 创建文件</p>
 <p>4、’$ mkdir’ 创建文件夹<br>-p可以递归创建目录<br>eg：$ mkdir -p a/b/c/d<br>(linux中当前目录下，文件和目录是不能重名的)</p>
@@ -254,6 +254,7 @@
 <p>12、’$ echo 文字内容’ 在终端中显示参数指定的文字，通常会和重定向联合使用</p>
 <p>13、’$ &gt;和&gt;&gt;’重定向  将本应显示到终端上的内容输出/追加到指定文件中<br>‘&gt;’ 表示输出，会覆盖文件内容<br>‘&gt;&gt;’表示追加，会将内容追加到已有文件末尾<br>（linux允许将命令执行结果重定向到一个文件）<br>eg: ‘$ ls -lh &gt; a’ 把显示的内容输入到文件a中（覆盖）<br>    ‘$ echo hello &gt;&gt; b’ 把hello输入到文件b中（追加）<br>使用echo和重定向可以创建文件，并在文件刚创建的时候将指定的内容输入</p>
 <p>14、’管道|’linux允许将一个命令的输出通过管道作为另一个命令的输入，左端写，右端读,<br>常和more以及grep联合使用<br>eg： ‘$ ls -alh | more ‘</p>
+<p>(远程管理常用命令)<br>1、’shutdown’</p>
 <h1 id="二、文本编辑器vi的使用"><a href="#二、文本编辑器vi的使用" class="headerlink" title="二、文本编辑器vi的使用"></a>二、文本编辑器vi的使用</h1><h1 id="三、编译交叉工具"><a href="#三、编译交叉工具" class="headerlink" title="三、编译交叉工具"></a>三、编译交叉工具</h1><h1 id="四、Makefile"><a href="#四、Makefile" class="headerlink" title="四、Makefile"></a>四、Makefile</h1>
       
     </div>
