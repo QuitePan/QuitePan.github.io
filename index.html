@@ -254,7 +254,7 @@
 <p>12、’$ echo 文字内容’ 在终端中显示参数指定的文字，通常会和重定向联合使用</p>
 <p>13、’$ &gt;和&gt;&gt;’重定向  将本应显示到终端上的内容输出/追加到指定文件中<br>‘&gt;’ 表示输出，会覆盖文件内容<br>‘&gt;&gt;’表示追加，会将内容追加到已有文件末尾<br>（linux允许将命令执行结果重定向到一个文件）<br>eg: ‘$ ls -lh &gt; a’ 把显示的内容输入到文件a中（覆盖）<br>    ‘$ echo hello &gt;&gt; b’ 把hello输入到文件b中（追加）<br>使用echo和重定向可以创建文件，并在文件刚创建的时候将指定的内容输入</p>
 <p>14、’管道|’linux允许将一个命令的输出通过管道作为另一个命令的输入，左端写，右端读,<br>常和more以及grep联合使用<br>eg： ‘$ ls -alh | more ‘</p>
-<p>(远程管理常用命令)<br>1、’shutdown’</p>
+<p>(远程管理常用命令)<br>1、’$ shutdown’ 关机<br>-r重启<br>-c取消<br>‘$ shutdown +10’ 10min后关机<br>2、’$ ifconfig’ 查看/配置网卡信息 </p>
 <h1 id="二、文本编辑器vi的使用"><a href="#二、文本编辑器vi的使用" class="headerlink" title="二、文本编辑器vi的使用"></a>二、文本编辑器vi的使用</h1><h1 id="三、编译交叉工具"><a href="#三、编译交叉工具" class="headerlink" title="三、编译交叉工具"></a>三、编译交叉工具</h1><h1 id="四、Makefile"><a href="#四、Makefile" class="headerlink" title="四、Makefile"></a>四、Makefile</h1>
       
     </div>
