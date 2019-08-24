@@ -3,19 +3,26 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>Tag: 嵌入式linux进阶 | QuitePan</title>
+  <title>MSP430时钟和定时器 | QuitePan</title>
 
   <!-- keywords -->
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="QuitePan">
-<meta property="og:url" content="https://QuitePan.github.io/tags/嵌入式linux进阶/index.html">
+  <meta name="description" content="电赛用到了MSP430，编程和51差不太多，都是对寄存器的操作，这里对它进行总结一下。">
+<meta name="keywords" content="单片机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MSP430时钟和定时器">
+<meta property="og:url" content="https://QuitePan.github.io/2019/08/13/MSP430时钟和定时器/index.html">
 <meta property="og:site_name" content="QuitePan">
+<meta property="og:description" content="电赛用到了MSP430，编程和51差不太多，都是对寄存器的操作，这里对它进行总结一下。">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://quitepan.github.io/img/6/1.png">
+<meta property="og:updated_time" content="2019-08-24T08:47:47.135Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="QuitePan">
+<meta name="twitter:title" content="MSP430时钟和定时器">
+<meta name="twitter:description" content="电赛用到了MSP430，编程和51差不太多，都是对寄存器的操作，这里对它进行总结一下。">
+<meta name="twitter:image" content="https://quitepan.github.io/img/6/1.png">
   
     <link rel="alternative" href="/atom.xml" title="QuitePan" type="application/atom+xml">
   
@@ -215,118 +222,114 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-MSP430时钟和定时器" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/01/嵌入式linux学习（五）：存储控制器，SDRAM实验/" class="archive-article-date">
-  	<time datetime="2019-08-01T06:33:51.000Z" itemprop="datePublished">Aug 1</time>
+    <div class="article-meta">
+      <a href="/2019/08/13/MSP430时钟和定时器/" class="article-date">
+  	<time datetime="2019-08-13T04:38:41.000Z" itemprop="datePublished">2019-08-13</time>
 </a>
-        </div>
-    	 
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/01/嵌入式linux学习（五）：存储控制器，SDRAM实验/">
-        嵌入式linux学习（五）：内存管理单元MMU
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
         
-      </a>
+  
+    <h1 class="article-title" itemprop="name">
+      MSP430时钟和定时器
+      
     </h1>
   
 
-        <div class="article-info info-on-left">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式linux进阶/">嵌入式linux进阶</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/单片机/">单片机</a></li></ul>
 	</div>
 
-          
+        
 	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/学习-S3C2440/">学习  S3C2440</a>
+	<a class="article-category-link" href="/categories/比赛-MSP430/">比赛 MSP430</a>
 	</div>
 
 
+        
           
-            
 <div class="counter-tag counter">
-    <span id="/2019/08/01/嵌入式linux学习（五）：存储控制器，SDRAM实验/" class="leancloud_visitors post-title-link" style="font-size: 12px" data-flag-title="嵌入式linux学习（五）：内存管理单元MMU">
+    <span id="/2019/08/13/MSP430时钟和定时器/" class="leancloud_visitors post-title-link" style="font-size: 12px" data-flag-title="MSP430时钟和定时器">
          &nbsp;
         view
     </span>
 </div>
 
-          
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/31/嵌入式linux学习（四）：存储管理器/" class="archive-article-date">
-  	<time datetime="2019-07-31T09:03:24.000Z" itemprop="datePublished">Jul 31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/31/嵌入式linux学习（四）：存储管理器/">
-        嵌入式linux学习（四）：存储管理器
         
-      </a>
-    </h1>
-  
-
-        <div class="article-info info-on-left">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式linux进阶/">嵌入式linux进阶</a></li></ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/学习-S3C2440/">学习  S3C2440</a>
-	</div>
-
-
-          
-            
-<div class="counter-tag counter">
-    <span id="/2019/07/31/嵌入式linux学习（四）：存储管理器/" class="leancloud_visitors post-title-link" style="font-size: 12px" data-flag-title="嵌入式linux学习（四）：存储管理器">
-         &nbsp;
-        view
-    </span>
-</div>
-
-          
-        </div>
         <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
+      </div>
+      
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>电赛用到了MSP430，编程和51差不太多，都是对寄存器的操作，这里对它进行总结一下。</p>
+<a id="more"></a>
+<p>使用的芯片型号是msp430g2553，扩展板为Launchpad</p>
+<h1 id="1、时钟部分"><a href="#1、时钟部分" class="headerlink" title="1、时钟部分"></a>1、时钟部分</h1><h2 id="1-1-编译环境"><a href="#1-1-编译环境" class="headerlink" title="1.1 编译环境"></a>1.1 编译环境</h2><blockquote>
+<p>首先说一下该款单片机常用的编译环境。一是CCS，还有一个就是IAR，我使用的是后者。软件的操作在百度上面一搜就是一大堆，所以只是简单提及一下。</p>
+</blockquote>
+<h2 id="1-2-MSP430时钟源"><a href="#1-2-MSP430时钟源" class="headerlink" title="1.2 MSP430时钟源"></a>1.2 MSP430时钟源</h2><blockquote>
+<p>MSP430基础时钟模块包含了三个时钟输入源：<br>1、LFXT1CLK:可接高速和低速晶振，在低速模式下，它可以外接32k的晶振而不需要负载电容，这种方式较为常见主要用来为ACLK提供低速的时钟信号，以供低速外设使用。高频模式：400kHz~16Mhz<br>2、DOCCLk:内部数字控制振荡器，它的频率可以通过DCOCLK进行配置。（上电复位后默认0.8~1.5Mhz）<br>3、XT2CLk:高速振荡器，它可以接一个0.4~16M的晶振，它相当于高速模式下的LFXT1。通常将它配置成一个高速的振荡源，为MCLK何SMCLK提供高速时钟信号。</p>
+</blockquote>
+<p>至此，咱知道了该单片机的每一个时钟输入源产生的信号大小，那么，这些时钟源是由哪些寄存器控制，又是如何输出时钟信号的呢。</p>
+<h2 id="1-3-控制时钟源的寄存器"><a href="#1-3-控制时钟源的寄存器" class="headerlink" title="1.3 控制时钟源的寄存器"></a>1.3 控制时钟源的寄存器</h2><blockquote>
+<p>1、BCSCTL1:控制XT2，LFXT1，DCO震荡，并控制ACLK的分频情况。<br>2、DCOCTL:控制DCO振荡器<br>3、BCSCTL2:设置三个时钟源分别选择什么振荡器</p>
+</blockquote>
+<h2 id="1-4-时钟信号"><a href="#1-4-时钟信号" class="headerlink" title="1.4 时钟信号"></a>1.4 时钟信号</h2><blockquote>
+<p>MSP430单片机工作所需时钟信号是由1.2中的时振荡器振荡后经过1.3中的寄存器配置后产生的，三个时钟信号分别为：<br>1、ACLK：由LFXT1CLK信号经过1/2/4/8分频后得到的，主要用作低速外围的时钟<br>2、MCLK：是LFXT1CLK,XT2CLK,DCOCLK的三者之一决定，由软件选择，然后经1/2/4/8分频后得到，主要用于CPU和系统。<br>3、SMCLK：可由LFXT1CLK和DCOCLK，或者XT2CLK与DCOCLK决定，然后经1/2/4/8分频后得到,主要用于高速外围模块。<br>时钟信号时如何产生的，可以从下面这张图简单了解：</p>
+</blockquote>
+<p><div align="center"><img src="/img/6/1.png" alt="时钟图"></div></p>
+<h1 id="2、定时器部分"><a href="#2、定时器部分" class="headerlink" title="2、定时器部分"></a>2、定时器部分</h1><h2 id="2-1"><a href="#2-1" class="headerlink" title="2.1"></a>2.1</h2>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/01/嵌入式linux学习（五）：存储控制器，SDRAM实验/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">嵌入式linux学习（五）：内存管理单元MMU</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="MSP430时钟和定时器" data-title="MSP430时钟和定时器" data-url="https://QuitePan.github.io/2019/08/13/MSP430时钟和定时器/" data-images="/img/day01/4310d4810aa15273.jpg" data-content="MSP430时钟和定时器">
+    <div class="ds-share-inline">
+      <ul class="ds-share-icons-16">
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
 
 </div>
       <footer id="footer">
@@ -352,9 +355,9 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false
 	}
