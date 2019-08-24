@@ -9,19 +9,20 @@
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="电赛用到了MSP430，编程和51差不太多，都是对寄存器的操作，这里对它进行总结一下。">
+  <meta name="description" content="电赛用到了MSP430，编程和51差不太多，都是对寄存器的操作，但是它的内部资源还是比51要丰富的多，这里对它的时钟和定时器进行总结一下。">
 <meta name="keywords" content="单片机">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MSP430时钟和定时器">
 <meta property="og:url" content="https://QuitePan.github.io/2019/08/13/MSP430时钟和定时器/index.html">
 <meta property="og:site_name" content="QuitePan">
-<meta property="og:description" content="电赛用到了MSP430，编程和51差不太多，都是对寄存器的操作，这里对它进行总结一下。">
+<meta property="og:description" content="电赛用到了MSP430，编程和51差不太多，都是对寄存器的操作，但是它的内部资源还是比51要丰富的多，这里对它的时钟和定时器进行总结一下。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://quitepan.github.io/img/6/1.png">
-<meta property="og:updated_time" content="2019-08-24T08:47:47.135Z">
+<meta property="og:image" content="https://quitepan.github.io/img/6/2.png">
+<meta property="og:updated_time" content="2019-08-24T10:44:54.343Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MSP430时钟和定时器">
-<meta name="twitter:description" content="电赛用到了MSP430，编程和51差不太多，都是对寄存器的操作，这里对它进行总结一下。">
+<meta name="twitter:description" content="电赛用到了MSP430，编程和51差不太多，都是对寄存器的操作，但是它的内部资源还是比51要丰富的多，这里对它的时钟和定时器进行总结一下。">
 <meta name="twitter:image" content="https://quitepan.github.io/img/6/1.png">
   
     <link rel="alternative" href="/atom.xml" title="QuitePan" type="application/atom+xml">
@@ -274,7 +275,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>电赛用到了MSP430，编程和51差不太多，都是对寄存器的操作，这里对它进行总结一下。</p>
+        <p>电赛用到了MSP430，编程和51差不太多，都是对寄存器的操作，但是它的内部资源还是比51要丰富的多，这里对它的时钟和定时器进行总结一下。</p>
 <a id="more"></a>
 <p>使用的芯片型号是msp430g2553，扩展板为Launchpad</p>
 <h1 id="1、时钟部分"><a href="#1、时钟部分" class="headerlink" title="1、时钟部分"></a>1、时钟部分</h1><h2 id="1-1-编译环境"><a href="#1-1-编译环境" class="headerlink" title="1.1 编译环境"></a>1.1 编译环境</h2><blockquote>
@@ -291,7 +292,31 @@
 <p>MSP430单片机工作所需时钟信号是由1.2中的时振荡器振荡后经过1.3中的寄存器配置后产生的，三个时钟信号分别为：<br>1、ACLK：由LFXT1CLK信号经过1/2/4/8分频后得到的，主要用作低速外围的时钟<br>2、MCLK：是LFXT1CLK,XT2CLK,DCOCLK的三者之一决定，由软件选择，然后经1/2/4/8分频后得到，主要用于CPU和系统。<br>3、SMCLK：可由LFXT1CLK和DCOCLK，或者XT2CLK与DCOCLK决定，然后经1/2/4/8分频后得到,主要用于高速外围模块。<br>时钟信号时如何产生的，可以从下面这张图简单了解：</p>
 </blockquote>
 <p><div align="center"><img src="/img/6/1.png" alt="时钟图"></div></p>
-<h1 id="2、定时器部分"><a href="#2、定时器部分" class="headerlink" title="2、定时器部分"></a>2、定时器部分</h1><h2 id="2-1"><a href="#2-1" class="headerlink" title="2.1"></a>2.1</h2>
+<h2 id="1-5-相关代码"><a href="#1-5-相关代码" class="headerlink" title="1.5 相关代码"></a>1.5 相关代码</h2><blockquote>
+<p>这儿贴一部分配置时钟信号的代码：<br>sys.h<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#ifndef  SYSCLK_H</span><br><span class="line">#define  SYSCLK_H</span><br><span class="line"></span><br><span class="line">#include &quot;msp430g2553.h&quot;</span><br><span class="line"></span><br><span class="line">void BCSplus_init(unsigned char Freq);</span><br><span class="line"></span><br><span class="line">#endif</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>sys.c<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#include&quot;sysclk.h&quot;</span><br><span class="line"></span><br><span class="line">void BCSplus_init(unsigned char Freq)</span><br><span class="line">&#123;     </span><br><span class="line">    BCSCTL2 = SELM_0 + DIVM_0 + DIVS_0;//时钟控制器，MCLK时钟源DCO，0分频，SMCLK时钟源DCO，0分频</span><br><span class="line">     switch(Freq)</span><br><span class="line">     &#123;</span><br><span class="line">            //DCOCTL:DCO控制  BCSCTL1：基本时钟控制寄存器1</span><br><span class="line">    case 1:     DCOCTL = CALDCO_1MHZ;       BCSCTL1 = CALBC1_1MHZ;  break;</span><br><span class="line">    case 8:     DCOCTL = CALDCO_8MHZ;       BCSCTL1 = CALBC1_8MHZ;  break;</span><br><span class="line">    case 12:    DCOCTL = CALDCO_12MHZ;      BCSCTL1 = CALBC1_12MHZ; break;</span><br><span class="line">    case 16:    DCOCTL = CALDCO_16MHZ;      BCSCTL1 = CALBC1_16MHZ; break;</span><br><span class="line">    default:        break;</span><br><span class="line">     &#125;</span><br><span class="line">     BCSCTL3 = XT2S_0 + LFXT1S_2 + XCAP_1;//LFXT1选择VLOCLK，晶振电容1pf</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h1 id="2、定时器部分"><a href="#2、定时器部分" class="headerlink" title="2、定时器部分"></a>2、定时器部分</h1><h2 id="2-1-Timer-A模块"><a href="#2-1-Timer-A模块" class="headerlink" title="2.1 Timer_A模块"></a>2.1 Timer_A模块</h2><blockquote>
+<p>MSP430中的Timer_A定时器包括一个16位定时器和三个捕获/比较模块，整体构造如下图所示：</p>
+</blockquote>
+<p><div align="center"><img src="/img/6/2.png" alt="Timer_A 功能框图"></div></p>
+<p><div align="center">Timer_A 功能框图</div></p>
+<h2 id="2-2-相关代码"><a href="#2-2-相关代码" class="headerlink" title="2.2 相关代码"></a>2.2 相关代码</h2><blockquote>
+<p>因为与定时器有关部分的介绍都是大同小异的，包括寄存器和功能，所以这里直接贴一份配置pwm的代码和一份定时60s的代码。</p>
+</blockquote>
+<h3 id="2-2-1-PWM"><a href="#2-2-1-PWM" class="headerlink" title="2.2.1 PWM"></a>2.2.1 PWM</h3><blockquote>
+<p>设置周期20ms，占空比为2m，也就是10%的pwm。首先是主函数中设置时钟频率，根据上面时钟部分的代码设置即可，这里我把MCLK和SMCLK设置的都是1Mhz，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&gt; #define T1 2000</span><br><span class="line">&gt; #define pwm1 200</span><br><span class="line">&gt; </span><br><span class="line">&gt; void main( void )</span><br><span class="line"> &#123;  </span><br><span class="line">    WDTCTL = WDTPW + WDTHOLD; //关看门狗</span><br><span class="line">    BCSplus_init(1);//MCLK和SMCLK都是1Mhz</span><br><span class="line">    Timer1_Init();</span><br><span class="line">    while(1)    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//定时器A1初始化</span><br><span class="line">void Timer1_Init()  </span><br><span class="line">&#123;</span><br><span class="line">/*时钟源：SMCLK；</span><br><span class="line">  时钟分频系数：1；</span><br><span class="line">  PWM：普通pwm 增计数</span><br><span class="line">  ：增计数清零</span><br><span class="line">*/</span><br><span class="line">  TA1CTL = TASSEL_2 +ID_0+MC_1+TACLR;  </span><br><span class="line">  TA1CCR0 =T1;  //周期   </span><br><span class="line">  TA1CCR1=PWM1;    //通道1占空比</span><br><span class="line">  TA1CCTL1=OUTMOD_7;//主定时器模式7 输出pwm       </span><br><span class="line">  TA1CCR2=PWM1;  //通道2占空比</span><br><span class="line">  TA1CCTL2=OUTMOD_7;//主定时器模式7 输出pwm </span><br><span class="line">  P2DIR |=BIT4+BIT2; //输出 TA1.1和TA1.2</span><br><span class="line">  P2SEL |=BIT4+BIT2; //TIM复用为PA2.2 PA2.4</span><br><span class="line">&#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>简单讲解一下上面的代码：<br>首先是对应的IO关系，P2.2和P2.4可以复用为timer1比较/捕获的输出输入口。输出pwm时，其中TAxCCR0一般是用来设定周期，而TAxCCR1和TAxCCR2用于设定占空比。TAxCTL寄存器，用来设置该定时器的时钟源、分频系数、捕获还是比较模式、计数模式等<br>然后是IO的操作，PxDIR设置IO口输入还是输出，PxSEL设置IO的复用</p>
+</blockquote>
+<h3 id="2-2-2-定时60s"><a href="#2-2-2-定时60s" class="headerlink" title="2.2.2 定时60s"></a>2.2.2 定时60s</h3><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#define uint unsigned int</span><br><span class="line">#define T0 60000</span><br><span class="line">uint flag = 0;</span><br><span class="line">//定时器A01初始化</span><br><span class="line">void Timer0_Init()  </span><br><span class="line">&#123;</span><br><span class="line">/*时钟源：SMCLK；</span><br><span class="line">  时钟分频系数：8；</span><br><span class="line">  PWM：普通pwm 增计数</span><br><span class="line">  ：增计数清零</span><br><span class="line">*/</span><br><span class="line">  TA0CTL = TASSEL_2 +ID_3+MC_1+TACLR;  </span><br><span class="line">  TA0CCR0 =T0-1;  //达到60ms溢出   </span><br><span class="line">  TA0CCTL0 = CCIE;//TA0CCR0定时器使能</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#pragma vector=TIMER0_A0_VECTOR</span><br><span class="line">__interrupt void TimerA0(void)</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">   k = k+1;</span><br><span class="line">   if(k==125) //60ms</span><br><span class="line">   &#123;</span><br><span class="line">    flag=1;</span><br><span class="line">    TA0CTL = MC_0;//暂停计数</span><br><span class="line">    k = 0;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void main( void )</span><br><span class="line"> &#123;  </span><br><span class="line">    WDTCTL = WDTPW + WDTHOLD; //关看门狗</span><br><span class="line">    BCSplus_init(1);//MCLK和SMCLK都是1Mhz</span><br><span class="line">    Timer0_Init() ;</span><br><span class="line">    __enable_interrupt();     //使能总中断  </span><br><span class="line">    </span><br><span class="line">    while(1) </span><br><span class="line">   &#123;   </span><br><span class="line">     if(flag2==1) </span><br><span class="line">     &#123;    </span><br><span class="line">     ...   </span><br><span class="line">     &#125; </span><br><span class="line">   &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>emmmm，这部分的话和上面差不太多，看注释的话应该可以理解。因为这次电赛做的是无线充电循迹车，所以没啥太难得地方，全部代码我上传到github上去了，如果有兴趣可以下载看一下。（小声bb，传的时候传错了，懒得删，所以又传了一份压缩包，这个压缩包才是正确的代码）</p>
+
       
     </div>
     
