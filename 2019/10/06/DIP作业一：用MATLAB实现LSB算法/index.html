@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>DIP作业一：用MATLAB实现LSB算法 | QuitePan</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="数字图像处理课内作业，算法很简单，后面我设计了一个GUI把它打包成了APP。虽然之前也使用过matlab的这个功能，但是忘记了，所以花了一天的时间才把它弄完整，因此为了日后再去到处找资料，在这儿写篇博客记录下来。">
+<meta name="keywords" content="MALTAB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DIP作业一：用MATLAB实现LSB算法">
+<meta property="og:url" content="https://QuitePan.github.io/2019/10/06/DIP作业一：用MATLAB实现LSB算法/index.html">
+<meta property="og:site_name" content="QuitePan">
+<meta property="og:description" content="数字图像处理课内作业，算法很简单，后面我设计了一个GUI把它打包成了APP。虽然之前也使用过matlab的这个功能，但是忘记了，所以花了一天的时间才把它弄完整，因此为了日后再去到处找资料，在这儿写篇博客记录下来。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://quitepan.github.io/img/7/1.png">
+<meta property="og:image" content="https://quitepan.github.io/img/7/2.jpg">
+<meta property="og:image" content="https://quitepan.github.io/img/7/3.jpg">
+<meta property="og:image" content="https://quitepan.github.io/img/7/4.png">
+<meta property="og:image" content="https://quitepan.github.io/img/7/5.png">
+<meta property="og:image" content="https://quitepan.github.io/img/7/6.png">
+<meta property="og:updated_time" content="2019-10-07T03:35:15.457Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DIP作业一：用MATLAB实现LSB算法">
+<meta name="twitter:description" content="数字图像处理课内作业，算法很简单，后面我设计了一个GUI把它打包成了APP。虽然之前也使用过matlab的这个功能，但是忘记了，所以花了一天的时间才把它弄完整，因此为了日后再去到处找资料，在这儿写篇博客记录下来。">
+<meta name="twitter:image" content="https://quitepan.github.io/img/7/1.png">
+  
+    <link rel="alternative" href="/atom.xml" title="QuitePan" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/day01/4310d4810aa15273.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+  
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85415703-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+      <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("K1qAIJa0JgKeGUnrlq0G526F-gzGzoHsz", "n4XwRe0iBOxWpBaYJ7HNWPA3");</script>
+<script src="/js/Counter.js"></script>
+  
+</head></html>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/day01/4310d4810aa15273.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">QuitePan</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/QuitePan" title="github">github</a>
+					        
+								<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/ci-an-fei-an?utm_source=qq&utm_medium=social&utm_oi=1071849854900404224" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1308847659&site=qq&menu=yes" title="mail">mail</a>
+					        
+								<a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1308847659&site=qq&menu=yes" title="qq">qq</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/MALTAB/" style="font-size: 10px;">MALTAB</a> <a href="/tags/MATLAB/" style="font-size: 10px;">MATLAB</a> <a href="/tags/start/" style="font-size: 10px;">start</a> <a href="/tags/单片机/" style="font-size: 10px;">单片机</a> <a href="/tags/嵌入式linux基础/" style="font-size: 20px;">嵌入式linux基础</a> <a href="/tags/嵌入式linux进阶/" style="font-size: 15px;">嵌入式linux进阶</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.coderxz.com">荣先森的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+		<div style="position:absolute;bottom:50px;left:0px;width:60%;opacity:0.6">
+		
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="300" height="86" src="//music.163.com/outchain/player?type=2&id=34509509&auto=1&height=66"></iframe>
+
+		</div>
+
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">QuitePan</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/day01/4310d4810aa15273.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">QuitePan</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/QuitePan" title="github">github</a>
+			        
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/ci-an-fei-an?utm_source=qq&utm_medium=social&utm_oi=1071849854900404224" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1308847659&site=qq&menu=yes" title="mail">mail</a>
+			        
+						<a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1308847659&site=qq&menu=yes" title="qq">qq</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-DIP作业一：用MATLAB实现LSB算法" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/10/06/DIP作业一：用MATLAB实现LSB算法/" class="article-date">
+  	<time datetime="2019-10-06T13:14:54.000Z" itemprop="datePublished">2019-10-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      DIP作业一：用MATLAB实现LSB算法
+      
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MALTAB/">MALTAB</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/数字图像处理/">数字图像处理</a>
+	</div>
+
+
+        
+          
+<div class="counter-tag counter">
+    <span id="/2019/10/06/DIP作业一：用MATLAB实现LSB算法/" class="leancloud_visitors post-title-link" style="font-size: 12px" data-flag-title="DIP作业一：用MATLAB实现LSB算法">
+         &nbsp;
+        view
+    </span>
+</div>
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>数字图像处理课内作业，算法很简单，后面我设计了一个GUI把它打包成了APP。虽然之前也使用过matlab的这个功能，但是忘记了，所以花了一天的时间才把它弄完整，因此为了日后再去到处找资料，在这儿写篇博客记录下来。<br><a id="more"></a></p>
+<h1 id="一、LSB算法的介绍"><a href="#一、LSB算法的介绍" class="headerlink" title="一、LSB算法的介绍"></a>一、LSB算法的介绍</h1><p>这里简单说一下LSB算法，包括它的基本原理和一些改进。</p>
+<h2 id="1、基本原理"><a href="#1、基本原理" class="headerlink" title="1、基本原理"></a>1、基本原理</h2><blockquote>
+<p>对空域的LSB做替换，用来替换LSB的序列就是需要加入的水印信息、水印的数字摘要或者由水印生成的伪随机序列。由于水印信息嵌入的位置是LSB，为了满足水印的不可见性，允许嵌入的水印强度不可能太高。然而针对空域的各种处理，如游程编码前的预处理，会对不显著分量进行一定的压缩，所以LSB算法对这些操作很敏感。因此LSB算法最初是用于脆弱性水印的。(这是百度的说明，看的都难搜)<br>从本质上说，LSB算法就是将秘密信息嵌入到载体图像像素值的最低有效位，也称最不显著位，改变这一位置对载体图像的品质影响最小。 其实不一定是图像像素的最低有效位，次低，次次低也可以，只要不影响图片的显示效果就行。</p>
+</blockquote>
+<h2 id="2、基本步骤"><a href="#2、基本步骤" class="headerlink" title="2、基本步骤"></a>2、基本步骤</h2><blockquote>
+<p>1.将得到的隐藏有秘密信息的十进制像素值转换为二进制数据； 2.用二进制秘密信息中的每一比特信息替换与之相对应的载体数据的最低有效位； 3.将得到的含秘密信息的二进制数据转换为十进制像素值，从而获得含秘密信息的图像。</p>
+</blockquote>
+<h2 id="3、一些改进的LSB"><a href="#3、一些改进的LSB" class="headerlink" title="3、一些改进的LSB"></a>3、一些改进的LSB</h2><blockquote>
+<p>因为LSB是一种很普通的算法，网上大部分论文写的也大体上有两种改进方式，要么打乱它嵌入图像时的顺序，也就是设计一个秘钥，秘钥的设计是重点；要么把数据嵌入到图像每一个像素的不同位置上（当然只是针对不显著位）。我设计时用了第一种，也就是设计一个秘钥然后根据秘钥来嵌入和读取图片，防止破解。</p>
+</blockquote>
+<h2 id="4、缺陷"><a href="#4、缺陷" class="headerlink" title="4、缺陷"></a>4、缺陷</h2><blockquote>
+<p>LSB虽说能够隐藏信息，但是由于图像的大小限制，所以没办法嵌入太多的信息，而且如果图片和所需嵌入信息量过大，那么运算起来也是十分耗时的。相对而言，其他的加密算法要比这个效率高，但是其优点就是容易实现，如果设计一个比较难以破解的秘钥，其安全性也较好。</p>
+</blockquote>
+<h1 id="二、MATLAB基本程序"><a href="#二、MATLAB基本程序" class="headerlink" title="二、MATLAB基本程序"></a>二、MATLAB基本程序</h1><p>我嵌入的是一段语音信号，图片随便从网上找了几张，先粗略的把程序写完跑了一遍，发现效果还行就是耗时较长，后面又设计了一个GUI，还是用了一些时间的。这里用第一版，没有加GUI的程序说明</p>
+<h2 id="1、嵌入信息"><a href="#1、嵌入信息" class="headerlink" title="1、嵌入信息"></a>1、嵌入信息</h2><blockquote>
+<h3 id="1-文件读取："><a href="#1-文件读取：" class="headerlink" title="1)文件读取："></a>1)文件读取：</h3><blockquote>
+<p>clc,clear<br>path1 = ‘G:\work\LSB\source\timg.jpg’;<br>path2 = ‘G:\work\LSB\source\sour.mp3’;<br>keypath = ‘G:\work\LSB\source\key.mat’;<br>load(keypath);%读取秘钥<br>message = fopen(path2,’r’);%需要隐藏的文件<br>[msgg,msg_len]=fread(message,’ubit1’);%按位以二进制形式读取音频内容与长度<br>image = imread(path1);%图片文件<br>image1 = image(:,:,1);<br>image2 = image(:,:,2);<br>image3 = image(:,:,3);<br>[m,n] = size(image1);<br>image_r = [image1;image2;image3];</p>
+</blockquote>
+</blockquote>
+<p>读取秘钥，音频文件读取为二进制，图像先读取为uint8数据类型，后面替换的时候再做转换</p>
+<blockquote>
+<h3 id="2-信息处理与隐藏"><a href="#2-信息处理与隐藏" class="headerlink" title="2)信息处理与隐藏"></a>2)信息处理与隐藏</h3><blockquote>
+<p>msg_bin = num2str(msgg);%转换为字符<br>msg = strjoin(cellstr(msg_bin)’,’’);%字符拼接<br>for i = 1:msg_len<br>    hog = dec2bin(image_r(key(i)),8);%图像每一位转换成8位二进制<br>    hog(8) = msg(i);<br>    image_r(key(i)) = bin2dec(hog);%替换<br>end</p>
+</blockquote>
+</blockquote>
+<p>因为图像像素转换成二进制时格式是字符串形式，所以为了方便替换，音频信息也转换成了字符串形式。这里用到的四个函数：第一个num2str，功能是把读取为矩阵的二进制音频文件转换成元胞形式；第二个是strjoin，把元胞矩阵合并成一个字符数组；第三个是dec2bin，十进制转换成二进制；第四个dec2bin，二进制转十进制</p>
+<blockquote>
+<h3 id="3-信息合并与保存"><a href="#3-信息合并与保存" class="headerlink" title="3)信息合并与保存"></a>3)信息合并与保存</h3><blockquote>
+<p>image_result(:,:,1) = image_r(1:m,1:n);<br>image_result(:,:,2) = image_r(m+1:m<em>2,1:n);<br>image_result(:,:,3) = image_r(m</em>2+1:m*3,1:n);<br>imwrite(image_result, ‘G:\work\LSB\source\result3.png’);  </p>
+</blockquote>
+</blockquote>
+<p>这里没什么好说的，唯一注意一点就是图像保存为jpg格式时会被自动压缩，再次读取时数据会有很大的改变。写程序时在这里卡了半天，最后才发现是这个原因。</p>
+<h2 id="2、读取信息"><a href="#2、读取信息" class="headerlink" title="2、读取信息"></a>2、读取信息</h2><p>这儿读取信息就是根据上面的秘钥来一位一位的读就成，直接把代码贴这儿：</p>
+<blockquote>
+<p>clc,clear<br>%% 文件读取<br>keypath = ‘G:\work\LSB\source\key.mat’;<br>load(keypath);%读取秘钥<br>image = imread(‘G:\work\LSB\source\result3.png’);<br>image1 = image(:,:,1);<br>image2 = image(:,:,2);<br>image3 = image(:,:,3);<br>image_r = [image1;image2;image3];<br>n = length(key);<br>%% 信息提取<br>for i = 1:n<br>   hog = dec2bin(image_r(key(i)),8);<br>   msg_r(i,1) = str2num(hog(8));<br>end<br>%% 信息保存<br>a = fopen(‘G:\work\LSB\source\result2.mp3’,’w’);<br>fwrite(a,msg_r,’ubit1’);<br>%% 播放音乐<br>[input_file, Fs] = audioread(‘G:\work\LSB\source\result2.mp3’);<br>x = input_file(:, 1);<br>sound(x, Fs); %%播放<br>clear sound  %%关闭<br>% audiowrite(‘target_file.WAV’, input_file, Fs);</p>
+</blockquote>
+<p>这里要说的是audioread函数和sound函数，就是一自动播放音乐的函数，能够把保存后的音频文件以double类型读取，然后再由sound函数播放，在语音信号处理上用这个函数。</p>
+<h2 id="3、GUI界面设计与程序"><a href="#3、GUI界面设计与程序" class="headerlink" title="3、GUI界面设计与程序"></a>3、GUI界面设计与程序</h2><p>GUI设置了三个面板，一个菜单，能够对不同的图片嵌入不同的音频信息，读取并播放隐藏在图片中的音频。先放几张图：</p>
+<p><div align="center" style="width:50% ;high:50%"><img src="/img/7/1.png" alt="1"></div></p>
+<p><div align="center" style="width:50% ;high:50%"><img src="/img/7/2.jpg" alt="2"></div></p>
+<p><div align="center" style="width:50% ;high:50%"><img src="/img/7/3.jpg" alt="3"></div></p>
+<p>然后是几种组件的程序设计，我用到的组件有：面板、按钮、弹出式列表框、坐标框和菜单；</p>
+<h3 id="1-菜单的设计"><a href="#1-菜单的设计" class="headerlink" title="1)菜单的设计"></a>1)菜单的设计</h3><p>设计菜单的作用是让使用者能够在同一个GUI下实现不同功能的自由切换，也就是三个面板之前的不同切换。首先在gui_OpeningFcn函数中设置初始化状态：</p>
+<blockquote>
+<p>set(handles.uipanel1,’parent’,gcf);<br>set(handles.uipanel3,’parent’,gcf);<br>set(handles.uipanel5,’parent’,gcf);<br>set(handles.uipanel5,’visible’,’on’);<br>set(handles.uipanel1,’visible’,’off’);<br>set(handles.uipanel3,’visible’,’off’);</p>
+</blockquote>
+<p>这里前面三句的意思是让三个面板呈现并列的关系，关于这一点，有一个值得注意的地方。在设计GUI时，不要把一个面板拖动到另一个面板里面，或者是让它们的上边重合。这样的话，面积小的面板会成为另一个面积较大面板的子类，再显示时就会出现bug，只有通过前三句程序才会让它们回到并列关系，但是这样面板在显示时会出现位置的偏移，所以在使用多面板时，首先要在gui_OpeningFcn先写上上面三条程序，然后调整它们的位置不要用鼠标拖动，利用Ctrl+方向键 来调整它们的位置。后面三句就是设置面板的显示与隐藏。</p>
+<blockquote>
+<p>菜单的整体设计如下：</p>
+</blockquote>
+<p><div align="center" style="width:50% ;high:50%"><img src="/img/7/4.png" alt="3"><br>程序作用是调整面板的显示与隐藏，主要是以下两个函数：</div></p>
+<blockquote>
+<p>function writeInfo_Callback(hObject, eventdata, handles)<br>% hObject    handle to writeInfo (see GCBO)<br>% eventdata  reserved - to be defined in a future version of MATLAB<br>% handles    structure with handles and user data (see GUIDATA)<br>set(handles.uipanel1,’visible’,’on’);<br>set(handles.uipanel3,’visible’,’off’);<br>set(handles.uipanel5,’visible’,’off’);<br>function readInfo_Callback(hObject, eventdata, handles)<br>% hObject    handle to readInfo (see GCBO)<br>% eventdata  reserved - to be defined in a future version of MATLAB<br>% handles    structure with handles and user data (see GUIDATA)<br>set(handles.uipanel1,’visible’,’off’);<br>set(handles.uipanel3,’visible’,’on’);<br>set(handles.uipanel5,’visible’,’off’);</p>
+</blockquote>
+<h3 id="2-写入文件"><a href="#2-写入文件" class="headerlink" title="2)写入文件"></a>2)写入文件</h3><p>首先是选择图片文件，然后再选择音频文件，点击加密后，会出现result<em>.png的文件，这里可以选择不同的图片文件和不同的音频文件生成不同的result</em>.png文件。因为加密过程比较缓慢，所以之前加了一个进度条来显示，结果发现加了进度条之后更加慢了，因此就没有加载。先展示一下效果：</p>
+<p><div align="center" style="width:50% ;high:50%"><img src="/img/7/5.png" alt="3"></div></p>
+<p>代码方面,第一段是图片文件选择，加上把指定文件夹下的.mp3文件全部显示到弹出式列表框下面，具体写在gui_OpeningFcn函数中：</p>
+<blockquote>
+<p>fileFolder=fullfile(‘G:\work\LSB\source\init\’);<br>dirOutput=dir(fullfile(fileFolder,’*.mp3’));<br>fileNames={dirOutput.name};<br>set(handles.popupmenu1,’string’,fileNames);</p>
+</blockquote>
+<p>第二段是图片的显示，显示原始图片，具体写在pushbutton1_Callback函数中：</p>
+<blockquote>
+<p>axes(handles.axes3);<br>global path1<br>[filename, pathname] = uigetfile(‘*.jpg’, ‘读取图片文件’); %选择图片文件<br>if isequal(filename,0)   %判断是否选择<br>   msgbox(‘没有选择任何图片’);<br>else<br>   path1=fullfile(pathname, filename);  %获得图片路径<br>   image=imread(path1);     %将图片读入矩阵<br>   imshow(image);<br>end</p>
+</blockquote>
+<p>第三段是选择加密文件，popupmenu1_Callback函数：</p>
+<blockquote>
+<p>global path2<br>global selected_string<br>global fileFolder<br>val  = get(handles.popupmenu1, ‘value’);<br>string_list = get(handles.popupmenu1,’string’);<br>selected_string=string_list{val};<br>path2 = [fileFolder,selected_string];<br>guidata(hObject, handles); </p>
+</blockquote>
+<p>最后展示一下读取文件的界面，文件读取完成会自动播放歌曲：</p>
+<p><div align="center" style="width:50% ;high:50%"><img src="/img/7/6.png" alt="3"></div></p>
+<p>剩下是加密函数和解密函数，和前面说的一样，所以这儿就不贴代码了，全部代码已经上传到github。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/24/元胞自动机/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">元胞自动机</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="DIP作业一：用MATLAB实现LSB算法" data-title="DIP作业一：用MATLAB实现LSB算法" data-url="https://QuitePan.github.io/2019/10/06/DIP作业一：用MATLAB实现LSB算法/" data-images="/img/day01/4310d4810aa15273.jpg" data-content="DIP作业一：用MATLAB实现LSB算法">
+    <div class="ds-share-inline">
+      <ul class="ds-share-icons-16">
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2019 QuitePan
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>
